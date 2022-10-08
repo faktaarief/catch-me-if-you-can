@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch me if u can..</title>
+</head>
+<body>
+    <style>
+        img { width: 150px }
+        .none { display: none }
+        .center { text-align: center }
+    </style>
+
+    <div class="reject none center">
+        <h3>Hayo dibilangin jangan buka di hp :P harus pake lepi/pc :P</h3>
+        <img src="/img/angry.webp">
+    </div>
+
+    <div class="main">
+        <h1>Catch Me Game</h1>
+        <h2>Ayo tangkap aku kalau bisa!</h2>
+        <img
+            class="catch-me"
+            onmouseover="moveIt()"
+            onclick="clickMe()"
+            src="/img/wlee.webp">
+    </div>
+
+    <script>
+        const UA_Android = navigator.userAgent.match(/Android/i)
+        const UA_IOS = navigator.userAgent.match(/Iphone/i)
+        
+        if (UA_Android || UA_IOS) {
+            const rejectDiv = document.querySelector('.reject')
+            const mainDiv = document.querySelector('.main')
+
+            rejectDiv.classList.remove('none')
+            mainDiv.classList.add('none')
+        } else {
+            sessionStorage.setItem('click', 0)
+
+            let catchMeImg = document.querySelector('.catch-me')
+
+            let viewWidth = window.innerWidth
+            let viewHeight = window.innerHeight
+
+            function getNewPosition (boxWidth, boxHeight) {
+                let newX = Math.floor((Math.random() * viewWidth) + 1 - boxWidth)
+                let newY = Math.floor((Math.random() * viewHeight) + 1 - boxHeight)
+
+                if(newX < 0) newX = 0
+                if(newY < 0) newY = 0
+                
+                return {x: newX, y: newY}
+            }
+
+            function moveIt () {
+                let clickData = sessionStorage.getItem('click')
+
+                if (catchMeImg.src.includes('howek')) {
+                    setTimeout(() => {
+                        catchMeImg.src = '/img/wlee.webp'
+                    }, 2000)
+                }
+                
+                let imgAttr = catchMeImg.getBoundingClientRect()
+                let pos = getNewPosition(imgAttr.width, imgAttr.height)
+
+                catchMeImg.style.margin = `${pos.y}px 0px 0px 0px`
+                catchMeImg.style.margin = `0px 0px 0px ${pos.x}px`
+            }
+
+            function clickMe () {
+                let clickData = sessionStorage.getItem('click')
+
+                if (clickData > 0 < 1) {
+                    catchMeImg.src = '/img/howek.jpg'
+                }
+
+                if (clickData >= 5) {
+                    alert('Selamat anda berhasil!')
+                    catchMeImg.src = '/img/win.jpg'
+                    catchMeImg.replaceWith(catchMeImg.cloneNode(true))
+                } else {
+                    sessionStorage.setItem('click', JSON.parse(clickData) + 1)
+                    moveIt()
+                }
+            }
+            
+        }
+        
+    </script>
+</body>
+</html>

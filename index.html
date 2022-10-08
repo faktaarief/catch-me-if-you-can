@@ -15,7 +15,7 @@
 
     <div class="reject none center">
         <h3>Hayo dibilangin jangan buka di hp :P harus pake lepi/pc :P</h3>
-        <img src="/img/angry.webp">
+        <img src="/catch-me-if-you-can/img/angry.webp">
     </div>
 
     <div class="main">
@@ -25,7 +25,7 @@
             class="catch-me"
             onmouseover="moveIt()"
             onclick="clickMe()"
-            src="/img/wlee.webp">
+            src="/catch-me-if-you-can/img/wlee.webp">
     </div>
 
     <script>
@@ -61,7 +61,7 @@
 
                 if (catchMeImg.src.includes('howek')) {
                     setTimeout(() => {
-                        catchMeImg.src = '/img/wlee.webp'
+                        catchMeImg.src = '/catch-me-if-you-can/img/wlee.webp'
                     }, 2000)
                 }
                 
@@ -76,12 +76,12 @@
                 let clickData = sessionStorage.getItem('click')
 
                 if (clickData > 0 < 1) {
-                    catchMeImg.src = '/img/howek.jpg'
+                    catchMeImg.src = '/catch-me-if-you-can/img/howek.jpg'
                 }
 
                 if (clickData >= 5) {
                     alert('Selamat anda berhasil!')
-                    catchMeImg.src = '/img/win.jpg'
+                    catchMeImg.src = '/catch-me-if-you-can/img/win.jpg'
                     catchMeImg.replaceWith(catchMeImg.cloneNode(true))
                 } else {
                     sessionStorage.setItem('click', JSON.parse(clickData) + 1)
